@@ -1,12 +1,21 @@
-version: '3'
+version: '3.8'
 services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - "8000:8000"
+    deploy:
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     volumes:
       - .:/code
     environment:
       FLASK_ENV: development
   redis:
     image: "redis:alpine"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
