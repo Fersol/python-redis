@@ -4,7 +4,17 @@ services:
     image: "fersol/python-redis:v3"
     ports:
       - "5000:5000"
+    deploy:
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     environment:
       FLASK_ENV: development
   redis:
     image: "redis:alpine"
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
