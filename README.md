@@ -41,3 +41,12 @@ docker service ls
 
 # Удалить сервис 
 docker stack rm my_service
+
+
+
+
+# Делаем свой репозиторий в хабе
+docker build -t fersol/python-redis:v3 .
+Когда уже есть докерфайл
+ПОтом делаем
+docker push fersol/python-redis:v3
