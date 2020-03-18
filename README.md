@@ -13,6 +13,9 @@ docker swarm init  --advertise-addr 192.168.0.48
 
 # add members
 Такая штука появляется в предыдущей команде, ее надо юзать
+
+docker swarm join-token worker
+
 docker swarm join --token SWMTKN-1-3n4r4i8e129divjs9coewg4rezifucdk7mkx3i9c330qc5zy81-2w2rm3i6hr3z65588umjtb28w 192.168.0.48:2377
 
 Проверить, что ноды подключились
@@ -39,6 +42,10 @@ curl 192.168.0.8:5000
 docker node ps
 docker service ls
 
+# Для просмотра состояния работ - где они выполняются
+docker service ps my_service_web
+
+
 # Удалить сервис 
 docker stack rm my_service
 
@@ -46,6 +53,7 @@ docker stack rm my_service
 
 
 # Делаем свой репозиторий в хабе
+docker login
 docker build -t fersol/python-redis:v3 .
 Когда уже есть докерфайл
 ПОтом делаем
