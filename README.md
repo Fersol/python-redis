@@ -1,6 +1,9 @@
 # python-redis
 Test task for docker swarm
 
+##  Where to play
+https://labs.play-with-docker.com
+
 ## references
 https://docs.docker.com/engine/swarm/stack-deploy/
 
