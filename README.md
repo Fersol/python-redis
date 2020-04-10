@@ -1,60 +1,50 @@
 # python-redis
 Test task for docker swarm
 
-# based on
+## references
 https://docs.docker.com/engine/swarm/stack-deploy/
 
-# Download via curl
-curl -LOk https://github.com/Fersol/python-redis/archive/master.zip
-curl -LkSs https://github.com/Fersol/python-redis/tarball -o master.tar.gz
+## Download
+git clone https://github.com/Fersol/python-redis
 
-# Create swarm
+## Create swarm 
+
 docker swarm init  --advertise-addr 192.168.0.48
 
-# add members
-Такая штука появляется в предыдущей команде, ее надо юзать
-
-docker swarm join-token worker
+To add workers: run this at node to add (this command will be shown after docker swarm init)
 
 docker swarm join --token SWMTKN-1-3n4r4i8e129divjs9coewg4rezifucdk7mkx3i9c330qc5zy81-2w2rm3i6hr3z65588umjtb28w 192.168.0.48:2377
 
-Проверить, что ноды подключились
+Check worker connection
+
 docker node ls
 
-# Скачать свой код
-git clone https://github.com/Fersol/python-redis
-
-# Сначала нужно собрать все образа
-docker-compose build
-
-# Проверить образы
-docker images
-
-# Меняем образ в compose
-
-# Поднять из docker-compose.yml файла систему
+## Up service from docker-compose.yml in swarm
 docker stack --orchestrator swarm deploy -c docker-compose.yml my_service
 
-docker ps
-# Чекнуть, что работает
-curl 192.168.0.8:5000
+Check that all is working
 
 docker node ps
-docker service ls
 
-# Для просмотра состояния работ - где они выполняются
 docker service ps my_service_web
 
+Check app status
 
-# Удалить сервис 
+curl 192.168.0.8:80
+
+## Delete service
 docker stack rm my_service
 
 
+### Build docker image for app
+login in DockerHub
 
-
-# Делаем свой репозиторий в хабе
 docker login
+
+Build image for app from Dockerfile
+
 docker build -t fersol/python-redis:v3 .
-Когда уже есть докерфайл
-ПОтом делаем
+
+Send image to Dockerhub
+
 docker push fersol/python-redis:v3
